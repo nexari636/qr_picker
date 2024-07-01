@@ -1,0 +1,62 @@
+<app-home></app-home>
+
+<div class="container">
+    <div class="center">
+        <h2>Persona</h2>
+        <form [formGroup]="formRegistroPersona"> 
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuario</label>
+                        <select class="form-select" id="usuario" formControlName="usuario">
+                            <option selected>------------</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>  
+                    </div>
+                    <div class="mb-3">
+                        <label for="cedula" class="form-label">Cedula</label>
+                        <input type="text" maxlength="10" class="form-control" id="cedula" formControlName="cedula">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombres" class="form-label">Nombres</label>
+                        <input type="text" maxlength="50" class="form-control" id="nombres" formControlName="nombres">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidos" class="form-label">Apellidos</label>
+                        <input type="text" maxlength="50" class="form-control" id="apellidos" formControlName="apellidos">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecha_nacimiento" class="form-label">Fecha Nacimiento</label>
+                        <input type="date" maxlength="50" class="form-control" id="fecha_nacimiento" formControlName="fecha_nacimiento">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="foto" class="form-label">Foto</label>
+                        <input type="file" maxlength="50" class="form-control" id="foto" formControlName="foto" accept=".jpg,.png" (change)="capFile($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecha_difuncion" class="form-label">Fecha difunción</label>
+                        <input type="date" maxlength="50" class="form-control" id="fecha_difuncion" formControlName="fecha_difuncion">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">telefono</label>
+                        <input type="text" maxlength="10" class="form-control" id="telefono" formControlName="telefono">
+                    </div>
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo</label>
+                        <input type="email" maxlength="50" class="form-control" id="correo" formControlName="correo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripcion Difuncion</label>
+                        <textarea maxlength="300" class="form-control" id="descripcion" formControlName="descripcion"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn_black" (click)="onSubmitRegistroPersona()">Guardar</button>
+            
+          </form>
+    </div>
+</div>
