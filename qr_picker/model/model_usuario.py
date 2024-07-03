@@ -13,7 +13,7 @@ def rename_file(instance, filename):
 class Model_Usuario(AbstractUser):
     id_usuario=models.BigAutoField(primary_key=True,verbose_name="Id usuario",db_column="id_usuario")
     ruta_foto_usuario=models.ImageField(upload_to=rename_file,null=True,blank=True,verbose_name="Foto Usuario",db_column="ruta_foto_usuario",validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg'])])    
-    cedula_usuario=models.TextField(max_length=10,verbose_name="Cedula usuario",db_column="cedula_usuario")
+    cedula_usuario=models.TextField(unique=True,max_length=10,verbose_name="Cedula usuario",db_column="cedula_usuario")
     fecha_modificacion_usuario=models.DateTimeField(blank=False,null=False,  auto_now=True, verbose_name='Fecha de modificación')
     estado_usuario=models.TextField(default=True,choices=CHOICE_ESTADO,verbose_name="Estado",db_column="estado_usuario")
 

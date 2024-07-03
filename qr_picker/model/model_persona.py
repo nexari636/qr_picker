@@ -12,7 +12,7 @@ def rename_file(instance, filename):
 
 class Model_Persona(models.Model):
     id_persona=models.BigAutoField(primary_key=True,verbose_name="Id persona",db_column="id_persona")
-    cedula_persona=models.TextField(max_length=10,verbose_name="Cedula",db_column="cedula_persona")
+    cedula_persona=models.TextField(unique=True,max_length=10,verbose_name="Cedula",db_column="cedula_persona")
     id_usuario= models.ForeignKey(Model_Usuario,verbose_name='Id usuario', db_column='id_usuario', on_delete=models.CASCADE, null=False, blank=False)
     nombres_persona=models.TextField(max_length=50,null=False,blank=False,verbose_name="Nombres",db_column="nombres_persona")
     apellidos_persona=models.TextField(max_length=50,null=False,blank=False,verbose_name="Apellidos",db_column="apellidos_persona")
