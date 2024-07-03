@@ -1,4 +1,4 @@
 export enum Estado{
-    True="Activo",
-    False="Inactivo"
+    True="True",
+    False="True"
 }

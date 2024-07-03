@@ -7,5 +7,6 @@ export const routes: Routes = [
     {path:'home',component:HomeComponent},
     {path:'login',component:LoginComponent},
     {path:'persona',component:PersonaComponent},
+    {path:'persona_actualizar/:personaId',component:PersonaComponent},
     {path:"**",redirectTo:'/login',pathMatch:'full'}
 ];

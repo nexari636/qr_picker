@@ -1,18 +1,16 @@
 <app-home></app-home>
 
 <div class="container">
-    <div class="center">
+    <div [ngClass]="{'center': param_idPerson==0, 'center_ac': param_idPerson!=0}" class="center">
         <h2>Persona</h2>
         <form [formGroup]="formRegistroPersona"> 
+            <input type="hidden" formControlName="id_person">
             <div class="row">
                 <div class="col">
                     <div class="mb-3">
                         <label for="usuario" class="form-label">Usuario</label>
                         <select class="form-select" id="usuario" formControlName="usuario">
-                            <option selected>------------</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option *ngFor="let user of lista_usuarios" value="{{user.id_usuario}}">{{user.first_name}} {{user.last_name}}</option>
                         </select>  
                     </div>
                     <div class="mb-3">
@@ -53,10 +51,24 @@
                         <label for="descripcion" class="form-label">Descripcion Difuncion</label>
                         <textarea maxlength="300" class="form-control" id="descripcion" formControlName="descripcion"></textarea>
                     </div>
+                    <div *ngIf="param_idPerson!=0" class="mb-3">
+                        <label  for="estado" class="form-label">Estado</label>
+                        <select class="form-select" id="estado" formControlName="estado">
+                            <option selected value="True">Activo</option>
+                            <option value="False">Inactivo</option>
+                        </select>                      
+                    </div>
                 </div>
             </div>
-            <button type="submit" class="btn_black" (click)="onSubmitRegistroPersona()">Guardar</button>
-            
+
+          
+            <button *ngIf="param_idPerson==0; else elseBlock"
+            type="submit" class="btn_black" (click)="onSubmitRegistroPersona()">Guardar</button>
+         
+            <ng-template #elseBlock>
+                <button type="submit" class="btn_black" (click)="onSubmitActualizacionPersona()">Actualizar</button>
+            </ng-template>
+         
           </form>
     </div>
 </div>

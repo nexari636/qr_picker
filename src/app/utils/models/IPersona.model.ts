@@ -1,5 +1,8 @@
+import { Estado } from '../models/IGeneral.model'
+
 export interface IRegistroPersona
 {
+    id_persona:number;
     cedula_persona: string;
     nombres_persona: string;
     apellidos_persona: string;
@@ -10,5 +13,6 @@ export interface IRegistroPersona
     descripcion_difuncion: string;
     telefono_persona: string;
     correo_persona: string;
+    estado_persona: Estado
 }
 
