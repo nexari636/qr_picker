@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from qr_picker.utils.json_error_msg import *
 from qr_picker.model.model_usuario import *
+from qr_picker.model.model_recurso_galeria import *
 from rest_framework.authtoken.models import Token
 
 from rest_framework.decorators import authentication_classes,permission_classes
@@ -41,7 +42,7 @@ def guardar_usuario(request):
         
         except Exception as e:
             print(e)
-            return Response(array_errors[MESSAGE_ERROR_SERVIDOR], status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(array_errors([MESSAGE_ERROR_SERVIDOR]), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
         return Response(array_errors([MESSAGE_SOLICITUD_NO_SOPORTADA]),status=status.HTTP_406_NOT_ACCEPTABLE)
     
@@ -67,6 +68,7 @@ def login(request):
             if(user.check_password(password)):
                 print("existe")
                 token, created=Token.objects.get_or_create(user=user)
+              
                 return Response({
                     "user": username,
                     "token": token.key,
@@ -79,7 +81,7 @@ def login(request):
             
         except Exception as e:
             print(e)
-            return Response(array_errors[MESSAGE_ERROR_SERVIDOR], status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(array_errors([MESSAGE_ERROR_SERVIDOR]), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     else:
         return Response(array_errors([MESSAGE_SOLICITUD_NO_SOPORTADA]),status=status.HTTP_406_NOT_ACCEPTABLE)
@@ -100,9 +102,9 @@ def logout(request):
         
         except Exception as e:
             print(e)
-            return Response(array_errors[MESSAGE_ERROR_SERVIDOR], status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(array_errors([MESSAGE_ERROR_SERVIDOR]), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
-        return Response(array_errors[MESSAGE_SOLICITUD_NO_SOPORTADA],status=status.HTTP_406_NOT_ACCEPTABLE)
+        return Response(array_errors([MESSAGE_SOLICITUD_NO_SOPORTADA]),status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 @api_view(['POST'])
@@ -113,6 +115,9 @@ def guardar_persona(request):
     errors_messages=[]
 
     if request.method == 'POST':
+
+        id_usuario_session=request.user.id_usuario
+
         seria_persona=Serializer_Persona(data=request.data)
         
         if seria_persona.is_valid():
@@ -146,6 +151,7 @@ def actualizar_persona(request):
             #seria_persona=Serializer_Persona(data=request.data)
             #seria_persona.is_valid()
             #if seria_persona.is_valid():
+            id_usuario_session=request.user.id_usuario
 
             data_person=request.data
             print(data_person)
@@ -162,7 +168,7 @@ def actualizar_persona(request):
             if(Model_Persona.objects.filter(id_persona=id_persona,cedula_persona=cedula_persona).exists() or not Model_Persona.objects.filter(cedula_persona=cedula_persona).exists()):
                 
                 person=get_object_or_404(Model_Persona,id_persona=id_persona)
-                user=get_object_or_404(Model_Usuario,id_usuario=id_usuario)
+                user=get_object_or_404(Model_Usuario,id_usuario=id_usuario_session)
 
                 person.cedula_persona=cedula_persona
                 person.nombres_persona=nombres_persona
@@ -192,6 +198,74 @@ def actualizar_persona(request):
         return Response(array_errors[MESSAGE_SOLICITUD_NO_SOPORTADA],status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def desactivar_persona(request):
+
+    errors_messages=[]
+
+    if request.method == 'POST':
+        try:
+            data_person=request.data
+            id_persona=data_person["id_persona"]
+            person=get_object_or_404(Model_Persona,id_persona=id_persona)
+
+            person.estado_persona=False
+            person.save()
+            return Response(dic_data_success,status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(e," ddd")
+            return Response(array_errors([MESSAGE_ERROR_SERVIDOR]), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        print("2")
+        return Response(array_errors([MESSAGE_SOLICITUD_NO_SOPORTADA]),status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def obtener_persona_por_id(request):
+
+    errors_messages=[]
+
+    if request.method == 'POST':
+        try:
+            data_person=request.data
+            id_persona=data_person["id_persona"]
+            print(id_persona)
+            print(request.user.id_usuario)
+            person=Model_Persona.objects.filter(id_persona=id_persona)
+            person_serializable=Serializer_Persona(person,many=True)
+            return Response(person_serializable.data,status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(array_errors([MESSAGE_ERROR_SERVIDOR]), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        print("2")
+        return Response(array_errors([MESSAGE_SOLICITUD_NO_SOPORTADA]),status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def listar_personas_por_usuario(request):
+
+    errors_messages=[]
+
+    if request.method == 'POST':
+        try:
+            id_usuario_session=request.user.id_usuario
+            person=Model_Persona.objects.filter(id_usuario=id_usuario_session)
+            person_serializable=Serializer_Persona(person,many=True)
+            return Response(person_serializable.data,status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(array_errors([MESSAGE_ERROR_SERVIDOR]), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        print("2")
+        return Response(array_errors([MESSAGE_SOLICITUD_NO_SOPORTADA]),status=status.HTTP_406_NOT_ACCEPTABLE)
+
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
@@ -210,3 +284,68 @@ def listar_usuarios(request):
     else:
         print("2")
         return Response(array_errors[MESSAGE_SOLICITUD_NO_SOPORTADA],status=status.HTTP_406_NOT_ACCEPTABLE)
+    
+
+
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def recursos_galeria(request):
+
+    print(request.data)
+    errors_messages=[]
+
+    if request.method == 'POST':
+
+        try:
+            data=request.data
+            id_galeria=data["id_galeria"]
+            id_persona=data["id_persona"]
+            tipo_recurso=data["tipo_recurso"]
+            descripcion=request.POST.getlist("descripcion")
+            recurso=request.data.getlist("recurso")
+
+            longitud_data=len(descripcion)
+            print(recurso)
+            #
+            id_usuario_session=request.user.id_usuario
+            person=get_object_or_404(Model_Persona,id_persona=id_persona)
+            user=get_object_or_404(Model_Usuario,id_usuario=id_usuario_session)
+            galeria_model=get_object_or_404(Model_Galeria,id_galeria=id_galeria)
+            tipo_recurso_model=get_object_or_404(Model_Tipo_Recurso,id_tipo_recurso=tipo_recurso)
+
+            for x in range(longitud_data):
+                print(recurso[x])
+                recurso_galeria=Model_Recursos_Galeria(
+                    id_galeria= galeria_model,
+                    id_recurso= tipo_recurso_model,
+                    id_persona= person,
+                    id_usuario= user,
+                    descripcion_recurso_galeria= descripcion[x],
+                    ruta_recurso= recurso[x]
+                )
+                recurso_galeria.save()
+            
+
+        #seria_persona=Serializer_Persona(data=request.data)
+        
+        #if seria_persona.is_valid():
+            #seria_persona.save()
+            return Response(dic_data_success,status=status.HTTP_201_CREATED)
+        #else:
+        #    print(seria_persona.errors)
+        #    print(seria_persona.is_valid())
+        #    print(seria_persona.data)
+
+        #    for key,values in seria_persona.errors.items():
+        #        print(values[0])
+        #        errors_messages.append(values[0])
+
+        #    return Response(array_errors(errors_messages), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as e:
+            print(e)
+            return Response(array_errors([MESSAGE_ERROR_SERVIDOR]), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        print("2")
+        return Response(array_errors([MESSAGE_SOLICITUD_NO_SOPORTADA]),status=status.HTTP_406_NOT_ACCEPTABLE)
