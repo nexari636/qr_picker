@@ -1,0 +1,55 @@
+<app-home></app-home>
+
+<div class="container table_dim">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"><small>Cedula</small></th>
+            <th scope="col"><small>Nombres</small></th>
+            <th scope="col"><small>Apellidos</small></th>
+            <th scope="col"><small>Correo</small></th>
+            <th scope="col"><small>Telefono</small></th>
+            <th scope="col"><small>Fecha Nacimiento</small></th>
+            <th scope="col"><small>Fecha Difuncion</small></th>
+            <th scope="col"><small>Estado</small> </th>
+            <th scope="col"><small>Editar</small></th>
+            <th scope="col"><small>Desactivar</small></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let person of this.personas_list">
+            <td>{{person.cedula_persona}}</td>
+            <td>{{person.nombres_persona}}</td>
+            <td>{{person.apellidos_persona}}</td>
+            <td>{{person.correo_persona}}</td>
+            <td>{{person.telefono_persona}}</td>
+            <td>{{person.fecha_nacimiento_persona}}</td>
+            <td>{{person.fecha_difuncion}}</td>
+            <td>
+             
+                @if(person.estado_persona=='True')
+                {
+                    <div class="estado_activo">
+                        <small>
+                            Activo
+                        </small>
+                    </div>
+                }
+                @else {
+                    <div class="estado_inactivo">
+                        <small>
+                            Inactivo
+                        </small>
+                    </div>
+                }
+            </td>
+            <td> 
+                <a routerLink="/persona_actualizar/{{person.id_persona}}" type="button" class="btn_editar" >Editar</a>
+            </td>
+            <td> 
+                <button type="button" class="btn_desactivar" (click)="DesactivatePerson(person.id_persona)">Desactivar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

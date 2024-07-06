@@ -4,7 +4,7 @@ import { ActivatedRoute,Params, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GetFile } from '../utils/files';
 import { PersonaService } from '../utils/services/persona/persona.service';
-import { IRegistroPersona } from '../utils/models/IPersona.model';
+import { IRegistroPersona, I_IDPersona } from '../utils/models/IPersona.model';
 import { UsuarioService } from '../utils/services/usuario/usuario.service';
 import { IListaUsuarios } from '../utils/models/IUsuario.model';
 import { NgClass, NgFor, NgIf } from '@angular/common';
@@ -14,15 +14,16 @@ import { Estado } from '../utils/models/IGeneral.model';
   selector: 'app-persona',
   standalone: true,
   imports: [HomeComponent,ReactiveFormsModule,NgFor,NgIf,NgClass],
-  templateUrl: './persona.component.html',
-  styleUrl: './persona.component.css'
+  templateUrl: './persona-form.component.html',
+  styleUrl: './persona-form.component.css'
 })
-export class PersonaComponent implements OnInit {
+export class PersonaFormComponent implements OnInit {
 
   formRegistroPersona: FormGroup;
   lista_usuarios: IListaUsuarios[];
   file:any=null;
   param_idPerson:number;
+
 
   constructor(private router:Router,private rutaParams: ActivatedRoute,private _servicePerson:PersonaService,private _listaUsers: UsuarioService)
   {
@@ -35,7 +36,6 @@ export class PersonaComponent implements OnInit {
         console.log(this.param_idPerson+" este es el id de persona");
       }
     });
-
 
     this.formRegistroPersona=new FormGroup({
       id_person:new FormControl(this.param_idPerson.toString(),[Validators.required]),
@@ -60,6 +60,36 @@ export class PersonaComponent implements OnInit {
       console.log(data);
       this.lista_usuarios=data;
     });
+
+    if (this.param_idPerson!=0)
+    {
+      const persona_id:I_IDPersona={
+        id_persona: this.param_idPerson,
+      }
+
+      this._servicePerson.obtener_persona(persona_id).subscribe((data:any)=>{
+        console.log(data[0]);
+        console.log("*******");
+        var datos_persona =data[0];
+        this.formRegistroPersona=new FormGroup({
+          id_person:new FormControl(this.param_idPerson.toString(),[Validators.required]),
+          usuario:new FormControl(`${datos_persona.id_usuario}`,[Validators.required]),
+          cedula:new FormControl(`${datos_persona.cedula_persona}`,[Validators.required,Validators.minLength(10),Validators.maxLength(10)]),
+          nombres:new FormControl(`${datos_persona.nombres_persona}`,[Validators.required,Validators.maxLength(50)]),
+          apellidos:new FormControl(`${datos_persona.apellidos_persona}`,[Validators.required,Validators.maxLength(50)]),
+          fecha_nacimiento:new FormControl(`${datos_persona.fecha_nacimiento_persona}`,[Validators.required]),
+          fecha_difuncion:new FormControl(`${datos_persona.fecha_difuncion}`),
+          descripcion:new FormControl(`${datos_persona.descripcion_difuncion ?? '' }`,[Validators.maxLength(300)]),
+          telefono:new FormControl(`${datos_persona.telefono_persona ?? '' }`,[Validators.maxLength(10)]),
+          correo:new FormControl(`${datos_persona.correo_persona ?? '' }`,[Validators.maxLength(50)]),
+          foto:new FormControl("",[Validators.required]),
+          estado:new FormControl(`${datos_persona.estado_persona}`,[Validators.required])
+        });
+      })
+    }
+
+
+    
   }
 
   onSubmitRegistroPersona():void

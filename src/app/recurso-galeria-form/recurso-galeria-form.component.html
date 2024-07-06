@@ -1,0 +1,68 @@
+<app-home></app-home>
+
+
+<div class="container">
+    <div class="formC">
+        <h2 class="text-center">Galeria recursos</h2>
+        <form [formGroup]="form_recurso_galeria"> 
+            <input type="hidden" formControlName="id_galeria">
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Persona</label>
+                        <select class="form-select" id="usuario" formControlName="id_person">
+                            <option value="1">p1</option>
+                            <option value="2">p2</option>
+                            <option value="3">p3</option>
+                            <option value="4">p4</option>
+                        </select>  
+                    </div>
+                </div>
+            </div>
+
+
+            <div formArrayName="imagenes" *ngFor="let imagenes of imagenes.controls; let i=index">
+                <div [formGroupName]="i">
+                    <div class="row row-dim" >
+                        
+                        <div class="col-8" >
+                            
+                                
+                            <div class="mb-2">
+                                <label for="recurso{{i}}" class="form-label">Recurso</label>
+                                <input type="file" class="form-control" id="recurso{{i}}" formControlName="recurso" accept=".jpg,.png,.mp4" (change)="capFile($event,i)">
+                            </div>
+                            <div class="mb-2">
+                                <label for="descripcion{{i}}" class="form-label">Descripcion</label>
+                                <textarea maxlength="300" class="form-control" id="descripcion{{i}}" formControlName="descripcion"></textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label for="tipo_recurso{{i}}" class="form-label">Tipo Recurso</label>
+                                <select class="form-select" id="tipo_recurso{{i}}" formControlName="tipo_recurso">
+                                    <option value="1">Foto</option>
+                                    <option value="2">Video</option>
+                                </select>  
+                            </div>
+                        </div>
+                        <div class="col-2 recurso">
+                            <div *ngIf="this.img_base[i].status; else elseBlockImg">
+                                <img [src]="this.img_base[i].file_base64" width="150" height="150" id="imagen{{i}}" style="background-color: #A6A6A6; width: auto;" />
+                            </div>
+                            <ng-template #elseBlockImg>
+                                <img width="150" height="150" id="imagen{{i}}" style="background-color: #A6A6A6; width: auto;" />
+                            </ng-template>
+                        </div>
+                        <div class="col-2 recurso">
+                            <button  class="btn_black" (click)="eliminar_imagen(i)"><i class='bx bx-trash-alt' ></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a  class="btn_black" (click)="agregar_imagen()">Agregar Imagen</a>
+            <button type="submit" (click)="onSubmitForm()" class="btn_black">Guardar</button>
+         
+        </form>
+    </div>
+</div>
+
+

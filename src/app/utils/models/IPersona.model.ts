@@ -16,3 +16,12 @@ export interface IRegistroPersona
     estado_persona: Estado
 }
 
+
+export interface I_IDPersona
+{
+    id_persona:number;
+}
+
+
+
+
