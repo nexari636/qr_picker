@@ -1,0 +1,49 @@
+<app-home></app-home>
+
+<a (click)="redireccionar_crear_interes()"  class="top-right-button">Crear interes</a>
+
+<div class="container text-center formC">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"><small>Interes</small></th>
+            <th scope="col"><small>Descripción</small></th>
+            <th scope="col"><small>Estado</small></th>
+            <th scope="col"><small>Editar</small></th>
+            <th scope="col"><small>Desactivar</small></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let interes of this.list_interes">
+            <td>{{interes.interes}}</td>
+            <td>{{interes.descripcion_interes}}</td>
+            <td>
+             
+                @if(interes.estado_interes=='True')
+                {
+                    <div class="estado_activo">
+                        <small>
+                            Activo
+                        </small>
+                    </div>
+                }
+                @else {
+                    <div class="estado_inactivo">
+                        <small>
+                            Inactivo
+                        </small>
+                    </div>
+                }
+            </td>
+            <td> 
+                <a routerLink="/interes_actualizar/{{interes.id_persona}}/{{interes.id_interes}}" type="button" class="btn_editar" >Editar</a>
+            </td>
+            <td> 
+                <button type="button" class="btn_desactivar" (click)="desactivar_interes(interes.id_interes)">Desactivar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<p-toast></p-toast>

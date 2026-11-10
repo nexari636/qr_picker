@@ -1,0 +1,66 @@
+<app-home></app-home>
+
+<a routerLink="/persona" class="top-right-button">Crear persona</a>
+
+<div class="formC">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"><small>Cedula</small></th>
+            <th scope="col"><small>Nombres</small></th>
+            <th scope="col"><small>Apellidos</small></th>
+            <th scope="col"><small>Correo</small></th>
+            <th scope="col"><small>Telefono</small></th>
+            <th scope="col"><small>Fecha Nacimiento</small></th>
+            <th scope="col"><small>Fecha Destacada</small></th>
+            <th scope="col"><small>Estado</small> </th>
+            <th scope="col"><small>Editar</small></th>
+            <th scope="col"><small>Desactivar</small></th>
+            <th scope="col"><small>Opciones</small></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let person of this.personas_list">
+            <td>{{person.cedula_persona}}</td>
+            <td>{{person.nombres_persona}}</td>
+            <td>{{person.apellidos_persona}}</td>
+            <td>{{person.correo_persona}}</td>
+            <td>{{person.telefono_persona}}</td>
+            <td>{{person.fecha_nacimiento_persona}}</td>
+            <td>{{person.fecha_destacada}}</td>
+            <td>
+             
+                @if(person.estado_persona=='True')
+                {
+                    <div class="estado_activo">
+                            Activo
+                    </div>
+                }
+                @else {
+                    <div class="estado_inactivo">
+                            Inactivo
+                    </div>
+                }
+            </td>
+            <td> 
+                <a routerLink="/persona_actualizar/{{person.id_persona}}" type="button" class="btn_editar" >Editar</a>
+            </td>
+            <td> 
+                <button type="button" class="btn_desactivar" (click)="DesactivatePerson(person.id_persona)">Desactivar</button>
+            </td>
+            <td>
+                <div class="dropdown">
+                    <div class="dropdown-button">Menú</div>
+                    <div class="dropdown-content">
+                        <div routerLink="/galeria_listar/{{person.id_persona}}">Galeria</div>
+                        <div routerLink="/listar_estudio/{{person.id_persona}}">Estudios</div>
+                        <div routerLink="/listar_interes/{{person.id_persona}}">Intereses</div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<p-toast></p-toast>

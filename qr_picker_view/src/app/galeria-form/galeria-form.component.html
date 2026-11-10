@@ -1,0 +1,33 @@
+<app-home></app-home>
+
+<div class="container">
+    <div class="formC">
+        <h2 class="text-center">Galeria</h2>
+        <form [formGroup]="formRegistroGaleria">  
+            <input type="hidden" formControlName="id_galeria">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="mb-3">
+                        <label for="nombre_galeria" class="form-label">Nombre</label>
+                        <input type="text" maxlength="50" class="form-control" id="nombre_galeria" formControlName="nombre_galeria">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion_galeria" class="form-label">Descripcion</label>
+                        <textarea maxlength="300" class="form-control" id="descripcion_galeria" formControlName="descripcion_galeria"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button *ngIf="this.num_galeria==0; else elseBlock"
+            type="submit" class="btn_black" (click)="onSubmitRegistroGaleria()">Guardar</button>
+
+            <ng-template #elseBlock>
+                <button type="submit" class="btn_black" (click)="onSubmitActualizarGaleria()">Actualizar</button>
+            </ng-template>
+
+
+        </form>
+    </div>
+</div>
+
+<p-toast></p-toast>

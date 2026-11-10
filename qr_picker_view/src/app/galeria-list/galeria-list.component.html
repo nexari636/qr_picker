@@ -1,0 +1,82 @@
+<app-home></app-home>
+
+
+<a (click)="redireccionar_crear_galeria()" class="top-right-button">Crear galeria</a>
+
+
+
+<div class="container text-center formC">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"><small>Nombre</small></th>
+            <th scope="col"><small>Descripción</small></th>
+            <th scope="col"><small>QR</small></th>
+            <th scope="col"><small>Estado</small></th>
+            <th scope="col"><small>Editar</small></th>
+            <th scope="col"><small>Desactivar</small></th>
+            <th scope="col"><small>Opciones</small></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let galeria of this.list_galeria">
+            <td>{{galeria.nombre_galeria}}</td>
+            <td>{{galeria.descripcion_galeria}}</td>
+            <td><img (click)="this.showDialog(galeria.ruta_qr)" src="{{this.URL_base}}/{{galeria.ruta_qr}}" width="40" height="40" /></td>
+            <td>
+             
+                @if(galeria.estado_galeria=='True')
+                {
+                    <div class="estado_activo">
+                        <small>
+                            Activo
+                        </small>
+                    </div>
+                }
+                @else {
+                    <div class="estado_inactivo">
+                        <small>
+                            Inactivo
+                        </small>
+                    </div>
+                }
+            </td>
+            <td> 
+                <a routerLink="/galeria_actualizar/{{galeria.id_galeria}}/{{galeria.id_persona}}" type="button" class="btn_editar" >Editar</a>
+            </td>
+            <td> 
+                <button type="button" class="btn_desactivar" (click)="desactivar_galeria(galeria.id_galeria)">Desactivar</button>
+            </td>
+            <td>
+                <div class="dropdown">
+                    <div class="dropdown-button">Menú</div>
+                    <div class="dropdown-content">
+                        <div routerLink="/listar_recurso_galeria/{{galeria.id_galeria}}">Galeria Detalle</div>
+                        <div class="download_file" (click)="download_qr(galeria.ruta_qr)">
+                            Descargar QR
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="flex justify-content-center">
+    <p-dialog 
+        header="QR" 
+        [(visible)]="visible" 
+        [modal]="true" 
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
+        [style]="{ width: '50vw' }" 
+        [draggable]="false" 
+        [resizable]="false">
+        <div style="text-align: center; width: 100%; height: 400px;">
+            <img src="{{this.url_img_modal}}" width="400" height="400" />
+        </div>
+    </p-dialog>
+</div>
+
+<p-toast></p-toast>

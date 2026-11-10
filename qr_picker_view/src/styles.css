@@ -1,0 +1,200 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+.center{
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vw;
+  background: white;
+  border-radius: 10px;
+}
+
+.center_ac{
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vw;
+  background: white;
+  border-radius: 10px;
+}
+
+
+.center h2{
+  text-align: center;
+  border-bottom: 1px solid silver;
+}
+
+.center_ac h2{
+  text-align: center;
+  border-bottom: 1px solid silver;
+}
+
+.btn_black {
+    background-color: rgb(65, 64, 69);
+    color: #fff;
+    margin: 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 10px;
+    border:none;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.btn_editar {
+  background-color: rgb(55, 104, 167);
+  color: #fff;
+  margin: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 15px;
+  padding-left: 15px;
+  border-radius: 10px;
+  border:none;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.btn_desactivar {
+  background-color: rgb(65, 64, 69);
+  color: #fff;
+  margin: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 15px;
+  padding-left: 15px;
+  border-radius: 10px;
+  border:none;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+
+.estado_activo{
+  padding: 5px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #67BB6A;
+  border-radius: 10px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.estado_inactivo{
+  padding: 5px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #EF534F;
+  border-radius: 10px;
+  font-size: 12px;
+  text-align: center;
+}
+
+
+.formC
+{
+    margin-top: 20vh;
+    margin-left: 15vh;
+    margin-right: 15vh;
+}
+
+.linea{
+  width: 100%;
+  height: 2px;
+  background-color: #A6A6A6;
+  margin: 3px;
+}
+
+.recurso{
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.row-dim{
+  padding: 10px;
+  border: 2px solid #DADDE7;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.navconfig{
+  top: 0 !important;
+}
+
+
+.top-right-button {
+  position: absolute;
+  top: 12vh; /* Ajusta según el espacio debajo del nav */
+  right: 20px;
+  padding: 5px 20px;
+  background-color: #414045;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+
+  /* Estilo general para el botón de Menú */
+
+  .dropdown-button {
+    padding: 6px 16px;
+    font-size: 13px;
+    background-color: #2c3e50; /* Color oscuro similar al de la imagen */
+    color: white;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+/* Contenedor del dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Elementos del menú dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Estilo de cada div dentro del dropdown */
+.dropdown-content div {
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer; /* Cambia el cursor a 'crosshair' */
+}
+
+
+/* Mostrar el dropdown al hacer hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+table, th, td {
+  font-size: 12px; /* Ajusta este valor según lo necesites */
+  padding: 8px;
+}
+

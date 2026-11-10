@@ -1,0 +1,54 @@
+<app-home></app-home>
+
+<a (click)="redireccionar_crear_estudio()" class="top-right-button">Crear estudio</a>
+
+
+<div class="container text-center formC">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"><small>Estudio</small></th>
+            <th scope="col"><small>Descripción</small></th>
+            <th scope="col"><small>Fecha Inicio</small></th>
+            <th scope="col"><small>Fecha Fin</small></th>
+            <th scope="col"><small>Estado</small></th>
+            <th scope="col"><small>Editar</small></th>
+            <th scope="col"><small>Desactivar</small></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let estudio of this.list_estudio">
+            <td>{{estudio.estudio}}</td>
+            <td>{{estudio.descripcion_estudio}}</td>
+            <td>{{estudio.fecha_inicio | date : 'yyyy-MM-dd'}}</td>
+            <td>{{estudio.fecha_fin | date : 'yyyy-MM-dd'}}</td>
+            <td>
+             
+                @if(estudio.estado_estudio=='True')
+                {
+                    <div class="estado_activo">
+                        <small>
+                            Activo
+                        </small>
+                    </div>
+                }
+                @else {
+                    <div class="estado_inactivo">
+                        <small>
+                            Inactivo
+                        </small>
+                    </div>
+                }
+            </td>
+            <td> 
+                <a routerLink="/estudio_actualizar/{{estudio.id_persona}}/{{estudio.id_estudio}}" type="button" class="btn_editar" >Editar</a>
+            </td>
+            <td> 
+                <button type="button" class="btn_desactivar" (click)="desactivar_estudio(estudio.id_estudio)">Desactivar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<p-toast></p-toast>

@@ -1,0 +1,81 @@
+<app-home></app-home>
+
+
+
+
+<div class="container">
+    <div [ngClass]="{'center': param_idPerson==0, 'center_ac': param_idPerson!=0}" class="center">
+        <h2 class="mb-3">Persona</h2>
+        <form [formGroup]="formRegistroPersona"> 
+            <!--<input type="hidden" formControlName="id_person">-->
+            <div class="row">
+                <div class="col">
+                   <!-- <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuario</label>
+                        <select class="form-select" id="usuario" formControlName="usuario">
+                            <option *ngFor="let user of lista_usuarios" value="{{user.id_usuario}}">{{user.first_name}} {{user.last_name}}</option>
+                        </select>  
+                    </div>-->
+                    <div class="mb-3">
+                        <label for="cedula" class="form-label">Cedula</label>
+                        <input type="text" maxlength="10" class="form-control" id="cedula" formControlName="cedula">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombres" class="form-label">Nombres</label>
+                        <input type="text" maxlength="50" class="form-control" id="nombres" formControlName="nombres">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidos" class="form-label">Apellidos</label>
+                        <input type="text" maxlength="50" class="form-control" id="apellidos" formControlName="apellidos">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecha_nacimiento" class="form-label">Fecha Nacimiento</label>
+                        <input type="date" maxlength="50" class="form-control" id="fecha_nacimiento" formControlName="fecha_nacimiento">
+                    </div>
+                    <div class="mb-3">
+                        <label for="foto" class="form-label">Foto</label>
+                        <input type="file" maxlength="50" class="form-control" id="foto" accept=".jpg,.png" (change)="capFile($event)">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="fecha_destacada" class="form-label">Fecha destacada</label>
+                        <input type="date" maxlength="50" class="form-control" id="fecha_destacada" formControlName="fecha_destacada">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">telefono</label>
+                        <input type="text" maxlength="10" class="form-control" id="telefono" formControlName="telefono">
+                    </div>
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo</label>
+                        <input type="email" maxlength="50" class="form-control" id="correo" formControlName="correo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripcion Destacada</label>
+                        <textarea maxlength="300" class="form-control" id="descripcion" formControlName="descripcion"></textarea>
+                    </div>
+                    <div *ngIf="param_idPerson!=0" class="mb-3">
+                        <label  for="estado" class="form-label">Estado</label>
+                        <select class="form-select" id="estado" formControlName="estado">
+                            <option selected value="True">Activo</option>
+                            <option value="False">Inactivo</option>
+                        </select>                      
+                    </div>
+                </div>
+            </div>
+
+          
+            <button *ngIf="param_idPerson==0; else elseBlock"
+            type="submit" class="btn_black" (click)="onSubmitRegistroPersona()">Guardar</button>
+         
+            <ng-template #elseBlock>
+                <button type="submit" class="btn_black" (click)="onSubmitActualizacionPersona()">Actualizar</button>
+            </ng-template>
+         
+          </form>
+    </div>
+</div>
+
+<p-toast></p-toast>
+
+

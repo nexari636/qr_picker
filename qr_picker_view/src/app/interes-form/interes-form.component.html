@@ -1,0 +1,36 @@
+<app-home></app-home>
+
+<div class="container">
+    <div class="formC">
+        <h2 class="text-center">Interes</h2>
+        <form [formGroup]="formRegistroInteres">  
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="mb-3">
+                        <label for="interes" class="form-label">Interes</label>
+                        <input type="text" maxlength="50" class="form-control" id="interes" formControlName="interes">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion_interes" class="form-label">Descripcion</label>
+                        <textarea maxlength="300" class="form-control" id="descripcion_interes" formControlName="descripcion_interes"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            
+            <button *ngIf="this.num_interesId==0; else elseBlock"
+            type="submit" class="btn_black" (click)="onSubmitRegistroInteres()">Guardar</button>
+
+            <ng-template #elseBlock>
+                <button type="submit" class="btn_black" (click)="onSubmitActualizarInteres()">Actualizar</button>
+            </ng-template>
+        
+
+        </form>
+    </div>
+</div>
+
+
+<p-toast></p-toast>
+
+

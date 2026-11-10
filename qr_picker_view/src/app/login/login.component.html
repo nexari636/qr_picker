@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="center">
+        @if (registro==1) 
+        {
+            <h1>Registro</h1>
+            <form  [formGroup]="formRegistro">
+                <div class="txt_field">
+                    <input type="text" name="text" required formControlName="cedula">
+                    <span></span>
+                    <label>Cedula</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="text" required formControlName="nombres">
+                    <span></span>
+                    <label>Nombres</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="text" required formControlName="apellidos">
+                    <span></span>
+                    <label>Apellidos</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="text" required formControlName="usuario">
+                    <span></span>
+                    <label>Usuario</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" required formControlName="password">
+                    <span></span>
+                    <label>Contraseña</label>
+                </div>
+                <input style="margin: 10px;" name="submit" type="Submit" value="Registrarse" (click)="onSubmitRegistro()">
+            </form>
+        } @else if(registro==2) {
+            <h1>Login</h1>
+            <form  [formGroup]="formLogin">
+                <div class="txt_field">
+                    <input type="text" name="usuario" required formControlName="usuario">
+                    <span></span>
+                    <label>Usuario</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" required formControlName="password">
+                    <span></span>
+                    <label>Contraseña</label>
+                </div>
+                <div class="pass" (click)="registro=3">Cambiar contraseña?</div>
+                <input name="submit" type="Submit" value="Login" (click)="onSubmitLogin()">
+                <div class="signup_link">
+                    No es miembro ? <a (click)="registro=1">Registrarse</a>
+                </div>
+            </form>
+        } @else {
+            <h1>Cambiar contraseña</h1>
+            <form  [formGroup]="formUpdate">
+                <div class="txt_field">
+                    <input type="text" name="usuario" required formControlName="usuario">
+                    <span></span>
+                    <label>Usuario</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" required formControlName="password">
+                    <span></span>
+                    <label>Contraseña</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" required formControlName="Cpassword">
+                    <span></span>
+                    <label>Vuelva a escribir la Contraseña</label>
+                </div>
+                <input name="submit" type="Submit" value="Guardar" (click)="onSubmitUpdatePassword()">
+            </form>
+        }
+    </div>
+</div>
+
+<p-toast></p-toast>
