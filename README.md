@@ -22,7 +22,7 @@ El repositorio integra tres aplicaciones independientes que comparten una misma 
 - [Arquitectura](#arquitectura)
 - [Stack tecnológico](#stack-tecnológico)
 - [Estructura del repositorio](#estructura-del-repositorio)
-- [Puesta en marcha](#puesta-en-marcha)
+- [Instalación y ejecución](#instalación-y-ejecución)
   - [Requisitos previos](#requisitos-previos)
   - [1. Backend](#1-backend)
   - [2. Panel web](#2-panel-web)
@@ -126,7 +126,7 @@ qr_pickerv1/
 
 ---
 
-## Puesta en marcha
+## Instalación y ejecución
 
 ### Requisitos previos
 
